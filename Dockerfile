@@ -5,7 +5,7 @@ WORKDIR /server
 COPY . .
 
 ARG LOCAL_REPO
-RUN if [ "$LOCAL_REPO" = "off" ] ; then echo "build submodule" ; else RUN git submodule update --init --recursive --remote; fi
+RUN if [ "$LOCAL_REPO" = "off" ] ; then echo "build submodule" ; else git submodule update --init --recursive --remote; fi
 
 RUN go mod download
 RUN go mod verify
