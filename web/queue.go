@@ -36,8 +36,8 @@ func (p *Poller) Start() {
 		log.Fatal(err)
 	}
 
-	consumer.AddHandler(p)                    //Use nsqlookupd to find nsqd instances
-	consumer.ConnectToNSQLookupd("nsqd:4161") // wait for signal to exit
+	consumer.AddHandler(p)                          //Use nsqlookupd to find nsqd instances
+	consumer.ConnectToNSQLookupd("nsqlookupd:4161") // wait for signal to exit
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 	<-sigChan // Gracefully stop the consumer.
