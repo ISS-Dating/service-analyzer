@@ -1,7 +1,9 @@
 package web
 
 import (
+	"bytes"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -28,6 +30,10 @@ func (p *Poller) Start() {
 	config.MaxInFlight = 5
 	config.MaxRequeueDelay = time.Second * 900
 	config.DefaultRequeueDelay = time.Second * 0
+
+	data := []byte(`{}`)
+	r := bytes.NewReader(data)
+	http.Post("http://nsqlookupd:4161/topic/create?topic=topic", "application/json", r)
 
 	topic := "topic"
 	channel := "world"
